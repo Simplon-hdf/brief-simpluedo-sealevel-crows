@@ -16,4 +16,3 @@
 - RG14 : Chaque personnage se trouve dans une pièce à la fois.
 - RG15 : Tous les personnages commencent dans la même pièce.
 - RG16 : Les personnages peuvent se déplacer de salle en salle.
-- RG17 : Le maître du jeu peut ajouter, supprimer ou modifier une pièce.
