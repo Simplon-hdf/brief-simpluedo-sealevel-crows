@@ -18,5 +18,5 @@
 | `nom_objet`        | Texte        |              | nom de l'objet                                   |
 | `description_objet`| Texte        |              | description de l'objet                           |
 | `image_objet`      | Texte        |              | image de l'objet                                 |
-| `arrivé_a`         | Date         |              | heure arrivé d'un personnage dans une salle      |
-| `sortie_a`         | Date         |              | heure de sortie d'un personnage dans une salle   |
+| `heure_arrive`         | Date         |              | heure arrivé d'un personnage dans une salle      |
+| `heure_sortie`         | Date         |              | heure de sortie d'un personnage dans une salle   |
