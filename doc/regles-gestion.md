@@ -7,7 +7,7 @@
 - RG05 : Le maître du jeu n'incarne pas de personnage.
 - RG06 : Une partie contient six armes.
 - RG07 : Une partie contient neuf salles.
-- RG08 : L'un des personnages est un meurtrier.
+- RG08 : Une salle contient 0 ou N objets.
 - RG09 : Un personnage peut visiter une pièce plusieurs fois.
 - RG10 : Un personnage ne peut être associé qu'à un seul utilisateur.
 - RG11 : Un objet se trouve dans une pièce.
