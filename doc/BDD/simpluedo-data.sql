@@ -1,6 +1,9 @@
 -- Pour se connecter à la DB avec l'utilisateur 
 -- pgcli -U simpluedo_admin -p 5433 -d simpluedo_db
 
+/* Connexion à la BDD */
+\c simpluedo_db
+
 /* Insertion de données dans la table rôles */
 INSERT INTO roles (nom_roles) VALUES
  ('observateur'),
@@ -39,19 +42,19 @@ INSERT INTO objets (nom_objets, id_salles) VALUES
 
 /* Insertion de données dans la table utilisateurs */
 INSERT INTO utilisateurs (pseudo_utilisateurs, id_roles, id_personnages) VALUES
-('MessaKami', 9, 1),
-('GETAMAZIGHT', 8, 3),
-('Srekaens', 8, 2),
-('Kuro', 8, 5),
-('Shotax', 8, 6),
-('Jegoro', 8, 4),
+('MessaKami', 3, 1),
+('GETAMAZIGHT', 2, 3),
+('Srekaens', 2, 2),
+('Kuro', 2, 5),
+('Shotax', 2, 6),
+('Jegoro', 2, 4);
 
 /* Insertion de données dans la table utilisateurs */
 INSERT INTO utilisateurs (pseudo_utilisateurs, id_roles) VALUES
-('Martial', 10),
-('Aurore', 10),
-('Julien', 10),
-('Boris', 10),
-('Gabriel', 10),
-('Yohan', 10),
-('Franck', 10);
+('Martial', 1),
+('Aurore', 1),
+('Julien', 1),
+('Boris', 1),
+('Gabriel', 1),
+('Yohan', 1),
+('Franck', 1);

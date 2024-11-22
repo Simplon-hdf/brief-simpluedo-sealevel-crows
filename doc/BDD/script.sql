@@ -1,16 +1,24 @@
 /* Étapes pour créer la DATABASE pour Simpluedo */
 
+/* Connexion sur la postgres */
+\c postgres
+
+/* Supprimer le base de données si elel existe déjà pour éviter une erreur pour le script */
+DROP DATABASE IF EXISTS simpluedo_db;
+
 /* Création de la base de données */
 CREATE DATABASE simpluedo_db;
 
-/* Création d'un utilisateur PostgreSQL pour la base de données */
-CREATE USER simpluedo_user;
+/* Connection à la database */
+\c simpluedo_db
 
-/* Renommage de l'utilisateur en simpluedo_admin */
-ALTER USER simpluedo_user RENAME TO simpluedo_admin;
-
-/* Définition d'un mot de passe pour simpluedo_admin */
-ALTER USER simpluedo_admin WITH PASSWORD 'admin';
+/* Supprimer les tables si elles existent déjà */
+DROP TABLE IF EXISTS utilisateurs CASCADE;
+DROP TABLE IF EXISTS roles CASCADE;
+DROP TABLE IF EXISTS personnages CASCADE;
+DROP TABLE IF EXISTS salles CASCADE;
+DROP TABLE IF EXISTS objets CASCADE;
+DROP TABLE IF EXISTS visiter CASCADE;
 
 /* Création de la table "utilisateurs" avec un UUID unique comme clé primaire */
 CREATE TABLE utilisateurs(
@@ -48,7 +56,7 @@ CREATE TABLE visiter(
     id_salles INTEGER,                                          
     heure_arrivee TIME,                                         
     heure_sortie TIME,                                          
-    PRIMARY KEY (id_personnages, id_salles),                    
+    PRIMARY KEY (id_personnages, id_salles, heure_arrivee),                    
     FOREIGN KEY (id_personnages) REFERENCES personnages(id_personnages), 
     FOREIGN KEY (id_salles) REFERENCES salles(id_salles)        
 );
@@ -68,5 +76,4 @@ ALTER TABLE objets ADD COLUMN id_salles INTEGER,
 ADD CONSTRAINT objets_id_salles_fkey
 FOREIGN KEY (id_salles) REFERENCES salles(id_salles); 
 
-/* Accorder des droits d'insertion, de modification et de suppression à simpluedo_admin sur toutes les tables */
-GRANT INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO simpluedo_admin;
+
