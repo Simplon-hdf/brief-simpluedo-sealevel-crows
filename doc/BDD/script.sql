@@ -61,6 +61,43 @@ CREATE TABLE visiter(
     FOREIGN KEY (id_salles) REFERENCES salles(id_salles)        
 );
 
+/* Création de la table position */
+CREATE TABLE position (
+    id_personnages INTEGER NOT NULL,
+    id_salles INTEGER NOT NULL,
+    heure_arrivee TIME NOT NULL,
+    PRIMARY KEY (id_personnages), -- Un personnage peut être dans une seule salle à la fois
+    FOREIGN KEY (id_personnages) REFERENCES personnages(id_personnages),
+    FOREIGN KEY (id_salles) REFERENCES salles(id_salles)
+);
+
+/* Création du Trigger */
+
+CREATE OR REPLACE FUNCTION maj_position_trigger()
+RETURNS TRIGGER AS $$
+BEGIN
+    -- Complète l'heure de sortie dans visiter
+    UPDATE visiter
+    SET heure_sortie = NEW.heure_arrivee
+    WHERE id_personnages = NEW.id_personnages
+      AND heure_sortie IS NULL;
+
+    -- Met à jour ou insère dans position
+    INSERT INTO position (id_personnages, id_salles, heure_arrivee)
+    VALUES (NEW.id_personnages, NEW.id_salles, NEW.heure_arrivee)
+    ON CONFLICT (id_personnages)
+    DO UPDATE SET id_salles = EXCLUDED.id_salles, heure_arrivee = EXCLUDED.heure_arrivee;
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trigger_maj_position
+AFTER INSERT OR UPDATE ON visiter
+FOR EACH ROW
+EXECUTE FUNCTION maj_position_trigger();
+
+
 /* Ajout d'une colonne pour associer les utilisateurs aux rôles */
 ALTER TABLE utilisateurs ADD COLUMN id_roles INTEGER,
 ADD CONSTRAINT utilisateurs_id_roles_fkey
