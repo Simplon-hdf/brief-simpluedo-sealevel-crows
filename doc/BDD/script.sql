@@ -15,7 +15,7 @@ ALTER USER simpluedo_admin WITH PASSWORD 'admin';
 /* Création de la table "utilisateurs" avec un UUID unique comme clé primaire */
 CREATE TABLE utilisateurs(
     uuid_utilisateurs UUID PRIMARY KEY DEFAULT gen_random_uuid(), 
-    pesudo_utilisateurs VARCHAR(50) NOT NULL                     
+    pseudo_utilisateurs VARCHAR(50) NOT NULL                     
 );
 
 /* Création de la table "roles" pour gérer les rôles des utilisateurs */
