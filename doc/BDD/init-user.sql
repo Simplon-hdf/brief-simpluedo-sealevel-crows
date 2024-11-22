@@ -1,3 +1,4 @@
+/* Connexion à la BDD */
 \c simpluedo_db
 
 /* Définition d'un mot de passe pour simpluedo_admin */

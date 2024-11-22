@@ -1,6 +1,7 @@
 -- Pour se connecter à la DB avec l'utilisateur 
 -- pgcli -U simpluedo_admin -p 5433 -d simpluedo_db
 
+/* Connexion à la BDD */
 \c simpluedo_db
 
 /* Insertion de données dans la table rôles */

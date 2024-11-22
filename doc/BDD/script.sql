@@ -1,4 +1,6 @@
 /* Étapes pour créer la DATABASE pour Simpluedo */
+
+/* Connexion sur la postgres */
 \c postgres
 
 /* Supprimer le base de données si elel existe déjà pour éviter une erreur pour le script */
