@@ -61,6 +61,80 @@ CREATE TABLE visiter(
     FOREIGN KEY (id_salles) REFERENCES salles(id_salles)        
 );
 
+/* Création de la table position */
+CREATE TABLE position (
+    id_personnages INTEGER NOT NULL,
+    id_salles INTEGER NOT NULL,
+    heure_arrivee TIME NOT NULL,
+    PRIMARY KEY (id_personnages), -- Un personnage peut être dans une seule salle à la fois
+    FOREIGN KEY (id_personnages) REFERENCES personnages(id_personnages),
+    FOREIGN KEY (id_salles) REFERENCES salles(id_salles)
+);
+
+/* Création du Trigger */
+
+CREATE OR REPLACE FUNCTION maj_position_trigger()
+RETURNS TRIGGER AS $$
+BEGIN
+    -- Complète l'heure de sortie dans visiter
+    UPDATE visiter
+    SET heure_sortie = NEW.heure_arrivee
+    WHERE id_personnages = NEW.id_personnages
+      AND heure_sortie IS NULL;
+
+    -- Met à jour ou insère dans position
+    INSERT INTO position (id_personnages, id_salles, heure_arrivee)
+    VALUES (NEW.id_personnages, NEW.id_salles, NEW.heure_arrivee)
+    ON CONFLICT (id_personnages)
+    DO UPDATE SET id_salles = EXCLUDED.id_salles, heure_arrivee = EXCLUDED.heure_arrivee;
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trigger_maj_position
+AFTER INSERT OR UPDATE ON visiter
+FOR EACH ROW
+EXECUTE FUNCTION maj_position_trigger();
+
+/*Création de la procédure stockée "Lister tous les objets situés dans une pièce passée en paramètre" */
+
+CREATE OR REPLACE FUNCTION lister_objet(nom_salle VARCHAR)
+ RETURNS TABLE(nom_objets VARCHAR)
+ LANGUAGE sql
+ AS $$
+    SELECT nom_objets
+    FROM objets
+    INNER JOIN salles ON salles.id_salles = objets.id_salles
+    WHERE nom_salles = nom_salle;
+ $$;
+
+/* Création de la procédure stockée "Ajout d'un objet passé en paramètre et association avec la pièce concernée en ID" */
+CREATE OR REPLACE PROCEDURE ajout_objet_id_salle(nom_objets VARCHAR, id_salles INTEGER)
+ LANGUAGE plpgsql
+ AS $$
+ BEGIN
+     INSERT INTO objets (nom_objets, id_salles) VALUES (nom_objets, id_salles);
+ END;
+ $$;
+
+/* Création de la procédure stockée "Ajout d'un objet passé en paramètre et association avec la pièce concernée avec le nom" */
+ CREATE OR REPLACE PROCEDURE ajout_objet(var_nom_objets VARCHAR, var_nom_salles VARCHAR)
+ LANGUAGE plpgsql
+ AS $$
+ BEGIN
+     INSERT INTO objets (nom_objets, id_salles)
+     SELECT var_nom_objets, salles.id_salles
+     FROM salles
+     WHERE salles.nom_salles = var_nom_salles;
+ 
+     IF NOT FOUND THEN
+         RAISE EXCEPTION 'La salle "%" n''existe pas.', var_nom_salles;
+     END IF;
+ END;
+ $$;
+
+
 /* Ajout d'une colonne pour associer les utilisateurs aux rôles */
 ALTER TABLE utilisateurs ADD COLUMN id_roles INTEGER,
 ADD CONSTRAINT utilisateurs_id_roles_fkey
