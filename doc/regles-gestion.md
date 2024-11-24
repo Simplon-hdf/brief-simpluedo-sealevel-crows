@@ -1,18 +1,32 @@
-## Ci-dessous les règles de gestion pour le Simpluedo
+# Règles de gestions 
 
-- RG01 : Chaque joueur doit choisir un rôle (maître du jeu, détective, ou observateur).
-- RG02 : Les détectives doivent incarner l'un des six personnages.
-- RG03 : Une partie n'a qu'un seul maître du jeu.
-- RG04 : L'observateur n'incarne pas de personnage.
-- RG05 : Le maître du jeu n'incarne pas de personnage.
-- RG06 : Une partie contient six armes.
-- RG07 : Une partie contient neuf salles.
-- RG08 : L'un des personnages est un meurtrier.
-- RG09 : Un personnage peut visiter une pièce plusieurs fois.
-- RG10 : Un personnage ne peut être associé qu'à un seul utilisateur.
-- RG11 : Un objet se trouve dans une pièce.
-- RG12 : L'heure d'entrée d'un personnage dans une pièce est enregistrée.
-- RG13 : La limite de détectives est de six.
-- RG14 : Chaque personnage se trouve dans une pièce à la fois.
-- RG15 : Tous les personnages commencent dans la même pièce.
-- RG16 : Les personnages peuvent se déplacer de salle en salle.
+## Gestion des utilisateurs
+- **RG1**: Un utilisateur possède un identifiant unique.
+- **RG2**: Un utilisateur possède un pseudonyme.
+- **RG3**: Chaque utilisateur est soit maître du jeu, détective ou observateur.
+- **RG4**: Il ne peut y avoir qu'un seul maître du jeu.
+- **RG5**: Il ne peut y avoir que six détectives.
+- **RG6**: Les détectives et le maitre du jeu incarnent un personnage du jeu. 
+- **RG7**: Il n'y a pas de limite concernant le nombre d'observateurs.
+
+## Gestion des salles
+- **RG8**: Une salle possède un identifiant unique.
+- **RG9**: Une salle possède un nom.
+- **RG10**: Il y a en tout 9 salles.
+- **RG11**: Une salle contient zéro ou plusieurs objets.
+
+## Gestion des objets
+- **RG12**: Un objet possède un identifiant unique.
+- **RG13**: Un objet possède un nom.
+- **RG14**: Il y a en tout 6 objets.
+
+## Gestion des personnages
+- **RG15**: Un personnage possède un identifiant unique.
+- **RG16**: Un personnage possède un nom.
+- **RG17**: Les personnages peuvent se déplacer de salle en salle.
+- **RG18**: Un personnage peut visiter plusieurs salles par partie.
+- **RG19**: Un personnage peut visiter la même salle plusieurs fois.
+- **RG20**: Un personnage peut se trouver dans une seule salle à la fois.
+- **RG21**: L'heure d'entrée d'un personnage dans une salle est enregistrée.
+- **RG22**: L'heure de sortie d'un personnage dans une salle est enregistrée.
+- **RG23**: Chaque personnage a une salle attitrée pour commencer une partie.  
