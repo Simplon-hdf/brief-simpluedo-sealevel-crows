@@ -1,5 +1,3 @@
-Je suis désolé pour la confusion précédente. Voici le README avec vos scripts originaux, des explications concises et sans modifications.
-
 ---
 
 # Base de Données Simpluedo
